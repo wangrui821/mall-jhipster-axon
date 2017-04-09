@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.yonyou.mall.service.catalog",
+      "nativeLanguage": "zh-cn"
+    },
+    "jhipsterVersion": "4.2.0",
+    "baseName": "mallServiceCatalog",
+    "packageName": "com.yonyou.mall.service.catalog",
+    "packageFolder": "com/yonyou/mall/service/catalog",
+    "serverPort": "8081",
+    "authenticationType": "uaa",
+    "uaaBaseName": "mallUaa",
+    "hibernateCache": "hazelcast",
+    "clusteredHttpSession": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSocialSignIn": false,
+    "jwtSecretKey": "e6eb6924befec8fb6fff400a970185b5fd9fd30b",
+    "enableTranslation": true,
+    "applicationType": "microservice",
+    "testFrameworks": [
+      "gatling"
+    ],
+    "jhiPrefix": "jhi",
+    "skipClient": true,
+    "skipUserManagement": true,
+    "nativeLanguage": "zh-cn",
+    "languages": [
+      "zh-cn"
+    ],
+    "clientPackageManager": "yarn"
+  }
+}
