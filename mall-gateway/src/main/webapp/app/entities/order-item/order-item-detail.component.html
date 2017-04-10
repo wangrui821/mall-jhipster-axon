@@ -1,0 +1,47 @@
+
+<div *ngIf="orderItem">
+    <h2><span jhiTranslate="mallGatewayApp.orderItem.detail.title">Order Item</span> {{orderItem.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="mallGatewayApp.orderItem.productId">Product Id</span></dt>
+        <dd>
+            <span>{{orderItem.productId}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.orderItem.productCode">Product Code</span></dt>
+        <dd>
+            <span>{{orderItem.productCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.orderItem.productName">Product Name</span></dt>
+        <dd>
+            <span>{{orderItem.productName}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.orderItem.price">Price</span></dt>
+        <dd>
+            <span>{{orderItem.price}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.orderItem.quantity">Quantity</span></dt>
+        <dd>
+            <span>{{orderItem.quantity}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.orderItem.order">Order</span></dt>
+        <dd>
+            <div *ngIf="orderItem.orderId">
+                <a [routerLink]="['/order', orderItem.orderId]">{{orderItem.orderCode}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'order-item/'+ orderItem.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,29 @@
+{
+    "mallGatewayApp": {
+        "order" : {
+            "home": {
+                "title": "Orders",
+                "createLabel": "Create a new Order",
+                "createOrEditLabel": "Create or edit a Order"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Order"
+            },
+            "code": "Code",
+            "totalAmount": "Total Amount",
+            "timeCreated": "Time Created",
+            "state": "State",
+            "orderItem": "Order Item"
+        }
+    },
+    "mallServiceOrderApp": {
+        "order" : {
+            "created": "A new Order is created with identifier {{ param }}",
+            "updated": "A Order is updated with identifier {{ param }}",
+            "deleted": "A Order is deleted with identifier {{ param }}"
+        }
+    }
+}

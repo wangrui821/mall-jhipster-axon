@@ -1,0 +1,94 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myOrderLabel" jhiTranslate="mallGatewayApp.order.home.createOrEditLabel">Create or edit a Order</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!order.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="order.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="mallGatewayApp.order.code" for="field_code">Code</label>
+            <input type="text" class="form-control" name="code" id="field_code"
+                [(ngModel)]="order.code"
+            required maxlength="40" />
+            <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.code?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 40 }">
+                   This field cannot be longer than 40 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="mallGatewayApp.order.totalAmount" for="field_totalAmount">Total Amount</label>
+            <input type="number" class="form-control" name="totalAmount" id="field_totalAmount"
+                [(ngModel)]="order.totalAmount"
+            required min="0" />
+            <div [hidden]="!(editForm.controls.totalAmount?.dirty && editForm.controls.totalAmount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.totalAmount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.totalAmount?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.totalAmount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="mallGatewayApp.order.timeCreated" for="field_timeCreated">Time Created</label>
+            <div class="d-flex">
+                <input id="field_timeCreated" type="datetime-local" class="form-control" name="timeCreated" [(ngModel)]="order.timeCreated"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.timeCreated?.dirty && editForm.controls.timeCreated?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.timeCreated?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.timeCreated?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="mallGatewayApp.order.state" for="field_state">State</label>
+            <select class="form-control" name="state" [(ngModel)]="order.state" id="field_state"  required>
+                <option value="PENDING_PAY" jhiTranslate="mallGatewayApp.OrderState.PENDING_PAY">PENDING_PAY</option>
+                <option value="PAID" jhiTranslate="mallGatewayApp.OrderState.PAID">PAID</option>
+                <option value="DELIVERED" jhiTranslate="mallGatewayApp.OrderState.DELIVERED">DELIVERED</option>
+                <option value="CANCELED" jhiTranslate="mallGatewayApp.OrderState.CANCELED">CANCELED</option>
+                <option value="FINISHED" jhiTranslate="mallGatewayApp.OrderState.FINISHED">FINISHED</option>
+            </select>
+            <div [hidden]="!(editForm.controls.state?.dirty && editForm.controls.state?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.state?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

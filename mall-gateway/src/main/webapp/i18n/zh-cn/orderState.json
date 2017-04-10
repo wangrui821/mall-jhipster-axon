@@ -1,0 +1,12 @@
+{
+    "mallGatewayApp": {
+        "OrderState" : {
+            "null": "",
+            "PENDING_PAY": "PENDING_PAY",
+            "PAID": "PAID",
+            "DELIVERED": "DELIVERED",
+            "CANCELED": "CANCELED",
+            "FINISHED": "FINISHED"
+        }
+    }
+}

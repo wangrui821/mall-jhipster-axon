@@ -2,7 +2,8 @@
   "generator-jhipster": {
     "promptValues": {
       "packageName": "com.yonyou.mall.gateway",
-      "nativeLanguage": "zh-cn"
+      "nativeLanguage": "zh-cn",
+      "microservicePath": "../mall-service-order"
     },
     "jhipsterVersion": "4.2.0",
     "baseName": "mallGateway",
@@ -11,8 +12,8 @@
     "serverPort": "9080",
     "authenticationType": "uaa",
     "uaaBaseName": "mallUaa",
-    "hibernateCache": "hazelcast",
-    "clusteredHttpSession": "hazelcast",
+    "hibernateCache": "no",
+    "clusteredHttpSession": false,
     "websocket": false,
     "databaseType": "sql",
     "devDatabaseType": "mysql",

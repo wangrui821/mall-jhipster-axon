@@ -1,0 +1,37 @@
+
+<div *ngIf="order">
+    <h2><span jhiTranslate="mallGatewayApp.order.detail.title">Order</span> {{order.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="mallGatewayApp.order.code">Code</span></dt>
+        <dd>
+            <span>{{order.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.order.totalAmount">Total Amount</span></dt>
+        <dd>
+            <span>{{order.totalAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.order.timeCreated">Time Created</span></dt>
+        <dd>
+            <span>{{order.timeCreated | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.order.state">State</span></dt>
+        <dd>
+            <span jhiTranslate="{{'mallGatewayApp.OrderState.' + order.state}}">{{order.state}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'order/'+ order.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

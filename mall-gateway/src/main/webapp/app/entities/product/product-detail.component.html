@@ -1,0 +1,41 @@
+
+<div *ngIf="product">
+    <h2><span jhiTranslate="mallGatewayApp.product.detail.title">Product</span> {{product.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="mallGatewayApp.product.code">Code</span></dt>
+        <dd>
+            <span>{{product.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.product.name">Name</span></dt>
+        <dd>
+            <span>{{product.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.product.price">Price</span></dt>
+        <dd>
+            <span>{{product.price}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.product.inventory">Inventory</span></dt>
+        <dd>
+            <span>{{product.inventory}}</span>
+        </dd>
+        <dt><span jhiTranslate="mallGatewayApp.product.description">Description</span></dt>
+        <dd>
+            <span>{{product.description}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'product/'+ product.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
