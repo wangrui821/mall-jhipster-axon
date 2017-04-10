@@ -1,17 +1,19 @@
 package com.yonyou.mall.service.catalog.web.rest;
 
+import java.math.BigDecimal;
+import java.util.List;
+import javax.persistence.EntityManager;
+
 import com.yonyou.mall.service.catalog.MallServiceCatalogApp;
-
 import com.yonyou.mall.service.catalog.config.SecurityBeanOverrideConfiguration;
-
 import com.yonyou.mall.service.catalog.domain.Product;
 import com.yonyou.mall.service.catalog.repository.ProductRepository;
-import com.yonyou.mall.service.catalog.service.ProductService;
 import com.yonyou.mall.service.catalog.repository.search.ProductSearchRepository;
+import com.yonyou.mall.service.catalog.service.ProductService;
+import com.yonyou.mall.service.catalog.service.api.ProductApi;
 import com.yonyou.mall.service.catalog.service.dto.ProductDTO;
 import com.yonyou.mall.service.catalog.service.mapper.ProductMapper;
 import com.yonyou.mall.service.catalog.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,14 +28,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.math.BigDecimal;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Test class for the ProductResource REST controller.
@@ -90,8 +93,8 @@ public class ProductResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ProductResource productResource = new ProductResource(productService);
-        this.restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
+        ProductApi productApi = new ProductResource(productService);
+        this.restProductMockMvc = MockMvcBuilders.standaloneSetup(productApi)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();

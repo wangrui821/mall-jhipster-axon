@@ -1,10 +1,13 @@
 package com.yonyou.mall.service.catalog.service.dto;
 
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Size;
+
+import com.sun.istack.internal.NotNull;
 
 /**
  * A DTO for the Product entity.
