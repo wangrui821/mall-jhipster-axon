@@ -1,0 +1,15 @@
+entity Product(cat_product) {
+	code String required maxlength(40),
+	name String required maxlength(20),
+    price BigDecimal required min(0),
+    inventory BigDecimal required min(0),
+    description String maxlength(100)
+}
+
+// Set pagination options
+paginate * with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl

@@ -33,7 +33,7 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/mallServiceOrder?useUnicode=true&characterEncoding=utf8&useSSL=false
+        url: jdbc:mysql://localhost:3306/mall_order?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
         password:
         hikari:

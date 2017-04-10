@@ -1,0 +1,30 @@
+enum OrderState {
+	PENDING_PAY, PAID, DELIVERED, CANCELED, FINISHED
+}
+
+entity Order(ord_order) {
+	code String required maxlength(40),
+    totalAmount BigDecimal required min(0),
+    timeCreated ZonedDateTime required,
+    state OrderState required
+}
+
+entity OrderItem(ord_order_item) {
+	productId Long required,
+	productCode String required maxlength(40),
+    productName String required maxlength(40),
+    price BigDecimal required min(0),
+    quantity BigDecimal required min(0)
+}
+
+relationship OneToMany {
+    Order{orderItem} to OrderItem{order(code) required}
+}
+
+// Set pagination options
+paginate * with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except OrderItem

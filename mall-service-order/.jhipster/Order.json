@@ -1,0 +1,52 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "orderItem",
+            "otherEntityName": "orderItem",
+            "otherEntityRelationshipName": "order"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 40
+        },
+        {
+            "fieldName": "totalAmount",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "timeCreated",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "OrderState",
+            "fieldValues": "PENDING_PAY,PAID,DELIVERED,CANCELED,FINISHED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170410032618",
+    "entityTableName": "ord_order",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "microserviceName": "mallServiceOrder",
+    "service": "serviceImpl"
+}
