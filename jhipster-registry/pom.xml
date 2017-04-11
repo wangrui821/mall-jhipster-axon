@@ -190,6 +190,13 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-spectator</artifactId>
         </dependency>
+
+        <!-- Axon Framework -->
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-spring-boot-starter-jgroups</artifactId>
+            <version>3.0.3</version>
+        </dependency>
     </dependencies>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
