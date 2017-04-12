@@ -3,7 +3,6 @@ package com.yonyou.mall.service.order.service;
 import com.yonyou.mall.service.order.service.dto.OrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import java.util.List;
 
 /**
  * Service Interface for managing Order.
@@ -20,7 +19,7 @@ public interface OrderService {
 
     /**
      *  Get all the orders.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -35,6 +34,14 @@ public interface OrderService {
     OrderDTO findOne(Long id);
 
     /**
+     *  Get the "code" order.
+     *
+     *  @param code the code of the entity
+     *  @return the entity
+     */
+    OrderDTO findByCode(String code);
+
+    /**
      *  Delete the "id" order.
      *
      *  @param id the id of the entity
@@ -45,7 +52,7 @@ public interface OrderService {
      * Search for the order corresponding to the query.
      *
      *  @param query the query of the search
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */

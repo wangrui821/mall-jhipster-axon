@@ -1,9 +1,9 @@
 package com.yonyou.mall.service.order.config;
 
+import java.util.Map;
+
 import com.yonyou.mall.service.order.security.AuthoritiesConstants;
-
 import io.github.jhipster.config.JHipsterProperties;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.RestTemplateCustomizer;
@@ -21,8 +21,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Map;
 
 @Configuration
 @EnableResourceServer
@@ -61,7 +59,7 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
     }
 
     @Bean
-    public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
+    public TokenStore jwtTokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
         return new JwtTokenStore(jwtAccessTokenConverter);
     }
 

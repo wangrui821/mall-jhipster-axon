@@ -1,22 +1,21 @@
 package com.yonyou.mall.service.order.service.mapper;
 
-import com.yonyou.mall.service.order.domain.*;
-import com.yonyou.mall.service.order.service.dto.OrderDTO;
-
-import org.mapstruct.*;
 import java.util.List;
+
+import com.yonyou.mall.service.order.domain.Order;
+import com.yonyou.mall.service.order.service.dto.OrderDTO;
+import org.mapstruct.Mapper;
 
 /**
  * Mapper for the entity Order and its DTO OrderDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {OrderItemMapper.class})
 public interface OrderMapper {
-
     OrderDTO orderToOrderDTO(Order order);
 
     List<OrderDTO> ordersToOrderDTOs(List<Order> orders);
 
-    @Mapping(target = "orderItems", ignore = true)
+//    @Mapping(target = "orderItems", ignore = true)
     Order orderDTOToOrder(OrderDTO orderDTO);
 
     List<Order> orderDTOsToOrders(List<OrderDTO> orderDTOs);
@@ -27,7 +26,7 @@ public interface OrderMapper {
      * @param id id of the entity
      * @return the entity instance
      */
-     
+
     default Order orderFromId(Long id) {
         if (id == null) {
             return null;
@@ -36,6 +35,4 @@ public interface OrderMapper {
         order.setId(id);
         return order;
     }
-    
-
 }

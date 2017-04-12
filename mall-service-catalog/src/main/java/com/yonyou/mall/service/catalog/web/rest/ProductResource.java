@@ -37,7 +37,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class ProductResource implements ProductApi {
-
     private final Logger log = LoggerFactory.getLogger(ProductResource.class);
 
     private static final String ENTITY_NAME = "product";
@@ -52,21 +51,26 @@ public class ProductResource implements ProductApi {
      * POST  /products : Create a new product.
      *
      * @param productDTO the productDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new productDTO, or with status 400 (Bad Request) if the product has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the new productDTO, or with status 400 (Bad
+     * Request) if the product has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @Override
     @PostMapping("/products")
     @Timed
-    public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) throws URISyntaxException {
+    public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO)
+        throws URISyntaxException {
         log.debug("REST request to save Product : {}", productDTO);
         if (productDTO.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new product cannot already have an ID")).body(null);
+            return ResponseEntity.badRequest()
+                                 .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists",
+                                     "A new product cannot already have an ID"))
+                                 .body(null);
         }
         ProductDTO result = productService.save(productDTO);
-        return ResponseEntity.created(new URI("/api/products/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return ResponseEntity.created(new URI("/api/products?code=" + result.getCode()))
+                             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getCode()))
+                             .body(result);
     }
 
     /**
@@ -81,15 +85,16 @@ public class ProductResource implements ProductApi {
     @Override
     @PutMapping("/products")
     @Timed
-    public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO) throws URISyntaxException {
+    public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO)
+        throws URISyntaxException {
         log.debug("REST request to update Product : {}", productDTO);
         if (productDTO.getId() == null) {
             return createProduct(productDTO);
         }
         ProductDTO result = productService.save(productDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, productDTO.getId().toString()))
-            .body(result);
+                             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, productDTO.getId().toString()))
+                             .body(result);
     }
 
     /**
@@ -124,6 +129,21 @@ public class ProductResource implements ProductApi {
     }
 
     /**
+     * GET  /products?code=:code : get the "code" product.
+     *
+     * @param code the code of the productDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the productDTO, or with status 404 (Not Found)
+     */
+    @Override
+    @GetMapping("/products?code={code}")
+    @Timed
+    public ResponseEntity<ProductDTO> getProductByCode(@PathVariable String code) {
+        log.debug("REST request to get Product : {}", code);
+        ProductDTO productDTO = productService.findByCode(code);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productDTO));
+    }
+
+    /**
      * DELETE  /products/:id : delete the "id" product.
      *
      * @param id the id of the productDTO to delete
@@ -142,7 +162,7 @@ public class ProductResource implements ProductApi {
      * SEARCH  /_search/products?query=:query : search for the product corresponding
      * to the query.
      *
-     * @param query the query of the product search
+     * @param query    the query of the product search
      * @param pageable the pagination information
      * @return the result of the search
      */
@@ -154,6 +174,4 @@ public class ProductResource implements ProductApi {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/products");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-
-
 }

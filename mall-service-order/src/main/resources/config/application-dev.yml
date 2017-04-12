@@ -63,6 +63,13 @@ spring:
                 path:
                   logs: target/elasticsearch/log
                   data: target/elasticsearch/data
+        mongodb:
+            host: localhost
+            port: 27017
+            database: mall_axon
+            domain-events-collection-name: domain_events
+            snapshot-events-collection-name: snapshot_events
+            sagas-collection-name: sagas
     mail:
         host: localhost
         port: 25
@@ -78,6 +85,12 @@ spring:
         locator:
             discovery:
                 enabled: true
+    # MQ for Axon event bus
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
 
 liquibase:
     contexts: dev
@@ -165,3 +178,23 @@ jhipster:
 # ===================================================================
 
 application:
+
+
+# Set logging level to prevent printing too many DEBUG log
+logging:
+    level:
+        org.mongodb: INFO
+        com.hazelcast: INFO
+
+axon:
+    amqp:
+        exchange: mall_axon.EventBus
+    distributed:
+        jgroups:
+            enabled: true
+            cluster-name: mall_axon
+            bind-addr: 127.0.0.1
+    eventhandling:
+        processors:
+            catalog:
+                source: catalogQueueMessageSource

@@ -4,6 +4,8 @@ package com.yonyou.mall.service.order.service.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -31,6 +33,8 @@ public class OrderDTO implements Serializable {
 
     @NotNull
     private OrderState state;
+
+    private List<OrderItemDTO> orderItems = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -66,6 +70,13 @@ public class OrderDTO implements Serializable {
 
     public void setState(OrderState state) {
         this.state = state;
+    }
+    public List<OrderItemDTO> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItemDTO> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @Override

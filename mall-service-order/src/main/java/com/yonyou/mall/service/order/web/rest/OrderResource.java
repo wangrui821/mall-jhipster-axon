@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 
 import com.codahale.metrics.annotation.Timed;
@@ -52,7 +53,8 @@ public class OrderResource implements OrderApi {
      * POST  /orders : Create a new order.
      *
      * @param orderDTO the orderDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new orderDTO, or with status 400 (Bad Request) if the order has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the new orderDTO, or with status 400 (Bad
+     * Request) if the order has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @Override
@@ -61,12 +63,17 @@ public class OrderResource implements OrderApi {
     public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO) throws URISyntaxException {
         log.debug("REST request to save Order : {}", orderDTO);
         if (orderDTO.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new order cannot already have an ID")).body(null);
+            return ResponseEntity.badRequest()
+                                 .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists",
+                                     "A new order cannot already have an ID"))
+                                 .body(null);
         }
+        String code = UUID.randomUUID().toString();
+        orderDTO.setCode(code);
         OrderDTO result = orderService.save(orderDTO);
-        return ResponseEntity.created(new URI("/api/orders/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return ResponseEntity.created(new URI("/api/orders?code=" + result.getCode()))
+                             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getCode()))
+                             .body(result);
     }
 
     /**
@@ -88,8 +95,8 @@ public class OrderResource implements OrderApi {
         }
         OrderDTO result = orderService.save(orderDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, orderDTO.getId().toString()))
-            .body(result);
+                             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, orderDTO.getId().toString()))
+                             .body(result);
     }
 
     /**
@@ -124,6 +131,21 @@ public class OrderResource implements OrderApi {
     }
 
     /**
+     * GET  /orders?code=:code : get the "code" order.
+     *
+     * @param code the code of the orderDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the orderDTO, or with status 404 (Not Found)
+     */
+    @Override
+    @GetMapping("/orders?code={code}")
+    @Timed
+    public ResponseEntity<OrderDTO> getOrderByCode(@PathVariable String code) {
+        log.debug("REST request to get Order : {}", code);
+        OrderDTO orderDTO = orderService.findByCode(code);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(orderDTO));
+    }
+
+    /**
      * DELETE  /orders/:id : delete the "id" order.
      *
      * @param id the id of the orderDTO to delete
@@ -142,7 +164,7 @@ public class OrderResource implements OrderApi {
      * SEARCH  /_search/orders?query=:query : search for the order corresponding
      * to the query.
      *
-     * @param query the query of the order search
+     * @param query    the query of the order search
      * @param pageable the pagination information
      * @return the result of the search
      */
@@ -154,6 +176,4 @@ public class OrderResource implements OrderApi {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/orders");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-
-
 }
