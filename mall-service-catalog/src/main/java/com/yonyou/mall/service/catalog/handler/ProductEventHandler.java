@@ -14,9 +14,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Administrator on 2017/3/30.
+ * Product event handler class. Product events are handled here. For instance, using JPA Repository to save entity.
+ *
+ * @author WangRui
  */
 @Component
+@SuppressWarnings("UnusedDeclaration")
 public class ProductEventHandler {
     private final Logger log = LoggerFactory.getLogger(ProductEventHandler.class);
 

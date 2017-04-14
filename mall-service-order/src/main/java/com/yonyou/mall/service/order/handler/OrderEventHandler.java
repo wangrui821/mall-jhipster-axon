@@ -16,11 +16,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * Order event handler class. Events are handled here. For instance, using JPA Repository to save entity.
+ * Order event handler class. Order events are handled here. For instance, using JPA Repository to save entity.
  *
  * @author WangRui
  */
 @Component
+@SuppressWarnings("UnusedDeclaration")
 public class OrderEventHandler {
     private final Logger log = LoggerFactory.getLogger(OrderEventHandler.class);
 

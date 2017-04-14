@@ -11,11 +11,12 @@ import org.axonframework.commandhandling.model.Repository;
 import org.springframework.stereotype.Component;
 
 /**
- * Product command handler, all types of commands are handled here.
+ * Product command handler, all types of product commands are handled here.
  *
  * @author WangRui
  */
 @Component
+@SuppressWarnings("UnusedDeclaration")
 public class ProductCommandHandler {
     private final Repository<ProductAggregate> repository;
 
@@ -51,7 +52,7 @@ public class ProductCommandHandler {
     }
 
     @CommandHandler
-    public void on(RollbackProductReserveCommand command) {
+    public void handle(RollbackProductReserveCommand command) {
         Aggregate<ProductAggregate> aggregate = repository.load(command.getProductCode());
         aggregate.execute(
             aggregateRoot -> aggregateRoot.rollbackReserve(command.getOrderCode(), command.getQuantity()));

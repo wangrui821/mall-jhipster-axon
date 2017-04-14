@@ -73,6 +73,7 @@ public class OrderServiceImpl implements OrderService{
                 orderProduct.setProductName(orderItem.getProductName());
                 orderProduct.setPrice(orderItem.getPrice());
                 orderProduct.setQuantity(orderItem.getQuantity());
+                orderProduct.setReserved(false);
                 orderProducts.add(orderProduct);
             });
             CreateOrderCommand command = new CreateOrderCommand(orderDTO.getCode(), orderDTO.getTotalAmount(),

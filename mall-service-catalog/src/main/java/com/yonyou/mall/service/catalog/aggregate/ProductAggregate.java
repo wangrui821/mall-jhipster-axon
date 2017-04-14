@@ -19,11 +19,9 @@ import org.slf4j.LoggerFactory;
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 import static org.axonframework.commandhandling.model.AggregateLifecycle.markDeleted;
 
-/**
- * Created by Administrator on 2017/3/28.
- */
 @Aggregate
 @NoArgsConstructor
+@SuppressWarnings("UnusedDeclaration")
 public class ProductAggregate {
     private final Logger log = LoggerFactory.getLogger(ProductAggregate.class);
 
@@ -71,9 +69,9 @@ public class ProductAggregate {
         apply(new ProductReserveRollbackedEvent(orderCode, code, quantity));
     }
 
-    // 此处也可以使用@EventSourcingHandler
+
     @EventSourcingHandler
-    public void handle(ProductCreatedEvent event) {
+    private void handle(ProductCreatedEvent event) {
         code = event.getCode();
         name = event.getName();
         price = event.getPrice();
@@ -83,9 +81,8 @@ public class ProductAggregate {
         log.info("Product {} will be created", event);
     }
 
-    // 此处也可以使用@EventSourcingHandler
     @EventSourcingHandler
-    public void handle(ProductUpdatedEvent event) {
+    private void handle(ProductUpdatedEvent event) {
         code = event.getCode();
         name = event.getName();
         price = event.getPrice();
@@ -95,17 +92,15 @@ public class ProductAggregate {
         log.info("Product {} will be updated", event);
     }
 
-    // 此处也可以使用@EventSourcingHandler
     @EventSourcingHandler
-    public void handle(ProductDeletedEvent event) {
+    private void handle(ProductDeletedEvent event) {
         code = event.getCode();
 
-        log.info("Product {} will be deleted", event);
+        log.info("Product {} will be deleted", code);
     }
 
-    // 此处也可以使用@EventHandler
     @EventSourcingHandler
-    public void handle(ProductReservedEvent event) {
+    private void handle(ProductReservedEvent event) {
         code = event.getProductCode();
         BigDecimal oldInventory = inventory;
         inventory = inventory.subtract(event.getQuantity());
@@ -113,9 +108,8 @@ public class ProductAggregate {
         log.info("Inventory of product {} will be reserved from {} to {}", code, oldInventory, inventory);
     }
 
-    // 此处也可以使用@EventHandler
     @EventSourcingHandler
-    public void handle(ProductReserveRollbackedEvent event) {
+    private void handle(ProductReserveRollbackedEvent event) {
         inventory = inventory.add(event.getQuantity());
 
         log.info("Inventory of product {} will be rollbacked to  {}", event.getProductCode(), inventory);

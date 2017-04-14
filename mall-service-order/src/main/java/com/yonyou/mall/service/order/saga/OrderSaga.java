@@ -27,7 +27,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Created by Administrator on 2017/3/31.
+ * Saga class for order, managing the process of order creation.
+ *
+ * @author WangRui
  */
 @Saga
 public class OrderSaga {
@@ -90,9 +92,10 @@ public class OrderSaga {
             if (toRollback.isEmpty()) {
                 commandGateway.send(new RollbackOrderCreateCommand(orderCode));
             }
-            return;
         }
-        commandGateway.send(new ConfirmOrderCreateCommand(orderCode));
+        else {
+            commandGateway.send(new ConfirmOrderCreateCommand(orderCode));
+        }
     }
 
     @SagaEventHandler(associationProperty = "orderCode")

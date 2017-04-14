@@ -28,6 +28,7 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.markDel
  */
 @Aggregate
 @NoArgsConstructor
+@SuppressWarnings("UnusedDeclaration")
 public class OrderAggregate {
     @AggregateIdentifier
     @JsonProperty
@@ -65,9 +66,9 @@ public class OrderAggregate {
         apply(new OrderCanceledEvent(code));
     }
 
-    // 此处也可以使用@EventHandler
+
     @EventSourcingHandler
-    public void on(OrderCreatedEvent event) {
+    private void handle(OrderCreatedEvent event) {
         code = event.getCode();
         totalAmount = event.getTotalAmount();
         timeCreated = event.getTimeCreated();

@@ -10,11 +10,12 @@ import org.axonframework.commandhandling.model.Repository;
 import org.springframework.stereotype.Component;
 
 /**
- * Order command handler, different types of command are handled here.
+ * Order command handler, different types of order command are handled here.
  *
  * @author WangRui
  */
 @Component
+@SuppressWarnings("UnusedDeclaration")
 public class OrderCommandHandler {
     private final Repository<OrderAggregate> repository;
 
