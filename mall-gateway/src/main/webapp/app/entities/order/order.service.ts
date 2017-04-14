@@ -12,7 +12,7 @@ export class OrderService {
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
     create(order: Order): Observable<Order> {
-        let copy: Order = Object.assign({}, order);
+        const copy: Order = Object.assign({}, order);
         copy.timeCreated = this.dateUtils.toDate(order.timeCreated);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
@@ -20,7 +20,7 @@ export class OrderService {
     }
 
     update(order: Order): Observable<Order> {
-        let copy: Order = Object.assign({}, order);
+        const copy: Order = Object.assign({}, order);
 
         copy.timeCreated = this.dateUtils.toDate(order.timeCreated);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
@@ -30,7 +30,7 @@ export class OrderService {
 
     find(id: number): Observable<Order> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            let jsonResponse = res.json();
+            const jsonResponse = res.json();
             jsonResponse.timeCreated = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse.timeCreated);
             return jsonResponse;
@@ -38,7 +38,7 @@ export class OrderService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             .map((res: any) => this.convertResponse(res))
         ;
@@ -48,9 +48,8 @@ export class OrderService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
     private convertResponse(res: any): any {
-        let jsonResponse = res.json();
+        const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {
             jsonResponse[i].timeCreated = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse[i].timeCreated);
@@ -60,9 +59,9 @@ export class OrderService {
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

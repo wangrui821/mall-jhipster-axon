@@ -25,12 +25,12 @@ export class OrderItemDeleteDialogComponent {
         this.jhiLanguageService.setLocations(['orderItem']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.orderItemService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.orderItemService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'orderItemListModification',
                 content: 'Deleted an orderItem'
@@ -49,13 +49,13 @@ export class OrderItemDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private orderItemPopupService: OrderItemPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.orderItemPopupService
                 .open(OrderItemDeleteDialogComponent, params['id']);
         });

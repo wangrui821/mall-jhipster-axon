@@ -11,25 +11,25 @@ export class AuthServerProvider {
         private $sessionStorage: SessionStorageService
     ) {}
 
-    getToken () {
+    getToken() {
         return this.$localStorage.retrieve('authenticationToken') || this.$sessionStorage.retrieve('authenticationToken');
     }
 
-    login (credentials): Observable<any> {
-        let data = new URLSearchParams();
+    login(credentials): Observable<any> {
+        const data = new URLSearchParams();
         data.append('grant_type', 'password');
         data.append('username', credentials.username);
         data.append('password', credentials.password);
 
-        let headers = new Headers ({
+        const headers = new Headers ({
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization' : 'Basic d2ViX2FwcDo='
         });
 
         return this.http.post('malluaa/oauth/token', data, {
-            headers: headers
+            headers
         }).map((resp) => {
-            let accessToken = resp.json()['access_token'];
+            const accessToken = resp.json()['access_token'];
             if (accessToken) {
                 this.storeAuthenticationToken(accessToken, credentials.rememberMe);
             }
@@ -55,7 +55,7 @@ export class AuthServerProvider {
         }
     }
 
-    logout (): Observable<any> {
+    logout(): Observable<any> {
         return new Observable(observer => {
             this.$localStorage.clear('authenticationToken');
             this.$sessionStorage.clear('authenticationToken');

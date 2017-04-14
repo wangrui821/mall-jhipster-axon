@@ -4,7 +4,7 @@
       "packageName": "com.yonyou.mall.service.order",
       "nativeLanguage": "zh-cn"
     },
-    "jhipsterVersion": "4.2.0",
+    "jhipsterVersion": "4.3.0",
     "baseName": "mallServiceOrder",
     "packageName": "com.yonyou.mall.service.order",
     "packageFolder": "com/yonyou/mall/service/order",

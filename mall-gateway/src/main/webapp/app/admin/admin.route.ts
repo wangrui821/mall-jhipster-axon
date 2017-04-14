@@ -14,7 +14,7 @@ import {
 
 import { UserRouteAccessService } from '../shared';
 
-let ADMIN_ROUTES = [
+const ADMIN_ROUTES = [
     auditsRoute,
     configurationRoute,
     docsRoute,
@@ -24,7 +24,6 @@ let ADMIN_ROUTES = [
     ...userMgmtRoute,
     metricsRoute
 ];
-
 
 export const adminState: Routes = [{
     path: '',

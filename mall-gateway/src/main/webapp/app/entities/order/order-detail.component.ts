@@ -26,14 +26,14 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInOrders();
     }
 
-    load (id) {
-        this.orderService.find(id).subscribe(order => {
+    load(id) {
+        this.orderService.find(id).subscribe((order) => {
             this.order = order;
         });
     }
@@ -47,7 +47,6 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInOrders() {
-        this.eventSubscriber = this.eventManager.subscribe('orderListModification', response => this.load(this.order.id));
+        this.eventSubscriber = this.eventManager.subscribe('orderListModification', (response) => this.load(this.order.id));
     }
-
 }

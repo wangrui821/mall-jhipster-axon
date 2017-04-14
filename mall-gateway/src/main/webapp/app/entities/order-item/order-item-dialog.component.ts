@@ -38,11 +38,11 @@ export class OrderItemDialogComponent implements OnInit {
         this.orderService.query().subscribe(
             (res: Response) => { this.orders = res.json(); }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.orderItem.id !== undefined) {
             this.orderItemService.update(this.orderItem)
@@ -55,13 +55,13 @@ export class OrderItemDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: OrderItem) {
+    private onSaveSuccess(result: OrderItem) {
         this.eventManager.broadcast({ name: 'orderItemListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         try {
             error.json();
         } catch (exception) {
@@ -71,7 +71,7 @@ export class OrderItemDialogComponent implements OnInit {
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -89,13 +89,13 @@ export class OrderItemPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private orderItemPopupService: OrderItemPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.modalRef = this.orderItemPopupService
                     .open(OrderItemDialogComponent, params['id']);

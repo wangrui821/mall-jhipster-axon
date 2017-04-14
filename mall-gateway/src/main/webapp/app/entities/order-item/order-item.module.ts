@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { MallGatewaySharedModule } from '../../shared';
-
 import {
     OrderItemService,
     OrderItemPopupService,
@@ -17,7 +16,7 @@ import {
     OrderItemResolvePagingParams,
 } from './';
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...orderItemRoute,
     ...orderItemPopupRoute,
 ];

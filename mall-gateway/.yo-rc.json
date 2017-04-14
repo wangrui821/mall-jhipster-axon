@@ -5,7 +5,7 @@
       "nativeLanguage": "zh-cn",
       "microservicePath": "../mall-service-order"
     },
-    "jhipsterVersion": "4.2.0",
+    "jhipsterVersion": "4.3.0",
     "baseName": "mallGateway",
     "packageName": "com.yonyou.mall.gateway",
     "packageFolder": "com/yonyou/mall/gateway",

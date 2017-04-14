@@ -8,7 +8,6 @@ import com.yonyou.mall.service.order.domain.Order;
 import com.yonyou.mall.service.order.repository.OrderRepository;
 import com.yonyou.mall.service.order.service.OrderService;
 import com.yonyou.mall.service.order.repository.search.OrderSearchRepository;
-import com.yonyou.mall.service.order.service.api.OrderApi;
 import com.yonyou.mall.service.order.service.dto.OrderDTO;
 import com.yonyou.mall.service.order.service.mapper.OrderMapper;
 import com.yonyou.mall.service.order.web.rest.errors.ExceptionTranslator;
@@ -94,8 +93,8 @@ public class OrderResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        OrderApi orderApi = new OrderResource(orderService);
-        this.restOrderMockMvc = MockMvcBuilders.standaloneSetup(orderApi)
+        OrderResource orderResource = new OrderResource(orderService);
+        this.restOrderMockMvc = MockMvcBuilders.standaloneSetup(orderResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();

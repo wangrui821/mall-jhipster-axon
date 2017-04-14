@@ -31,7 +31,6 @@ import {
     UserModalService
 } from './';
 
-
 @NgModule({
     imports: [
         MallGatewaySharedModule,

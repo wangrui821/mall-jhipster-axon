@@ -1,5 +1,5 @@
 # mallGateway
-This application was generated using JHipster 4.2.0, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.2.0](https://jhipster.github.io/documentation-archive/v4.2.0).
+This application was generated using JHipster 4.3.0, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.3.0](https://jhipster.github.io/documentation-archive/v4.3.0).
 
 This is a "gateway" application intended to be part of a microservice architecture, please refer to the [Doing microservices with JHipster][] page of the documentation for more information.
 
@@ -132,14 +132,14 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 To configure CI for your project, run the ci-cd sub-generator (`yo jhipster:ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
 [JHipster Homepage and latest documentation]: https://jhipster.github.io
-[JHipster 4.2.0 archive]: https://jhipster.github.io/documentation-archive/v4.2.0
-[Doing microservices with JHipster]: https://jhipster.github.io/documentation-archive/v4.2.0/microservices-architecture/
-[Using JHipster in development]: https://jhipster.github.io/documentation-archive/v4.2.0/development/
-[Service Discovery and Configuration with the JHipster-Registry]: https://jhipster.github.io/documentation-archive/v4.2.0/microservices-architecture/#jhipster-registry
-[Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v4.2.0/docker-compose
-[Using JHipster in production]: https://jhipster.github.io/documentation-archive/v4.2.0/production/
-[Running tests page]: https://jhipster.github.io/documentation-archive/v4.2.0/running-tests/
-[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v4.2.0/setting-up-ci/
+[JHipster 4.3.0 archive]: https://jhipster.github.io/documentation-archive/v4.3.0
+[Doing microservices with JHipster]: https://jhipster.github.io/documentation-archive/v4.3.0/microservices-architecture/
+[Using JHipster in development]: https://jhipster.github.io/documentation-archive/v4.3.0/development/
+[Service Discovery and Configuration with the JHipster-Registry]: https://jhipster.github.io/documentation-archive/v4.3.0/microservices-architecture/#jhipster-registry
+[Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v4.3.0/docker-compose
+[Using JHipster in production]: https://jhipster.github.io/documentation-archive/v4.3.0/production/
+[Running tests page]: https://jhipster.github.io/documentation-archive/v4.3.0/running-tests/
+[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v4.3.0/setting-up-ci/
 
 
 [Node.js]: https://nodejs.org/
