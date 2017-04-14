@@ -20,7 +20,7 @@ class OrderGatlingTest extends Simulation {
     // Log failed HTTP requests
     //context.getLogger("io.gatling.http").setLevel(Level.valueOf("DEBUG"))
 
-    val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://127.0.0.1:8080"""
+    val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://127.0.0.1:9080"""
 
     val httpConf = http
         .baseURL(baseURL)
@@ -35,7 +35,8 @@ class OrderGatlingTest extends Simulation {
         "Accept" -> """application/json"""
     )
 
-    val authorization_header = "Basic " + Base64.getEncoder.encodeToString("mallServiceOrderapp:my-secret-token-to-change-in-production".getBytes(StandardCharsets.UTF_8))
+//    val authorization_header = "Basic " + Base64.getEncoder.encodeToString("mallServiceOrderapp:my-secret-token-to-change-in-production".getBytes(StandardCharsets.UTF_8))
+    val authorization_header = "Basic d2ViX2FwcDo="
 
     val headers_http_authentication = Map(
         "Content-Type" -> """application/x-www-form-urlencoded""",
@@ -50,24 +51,24 @@ class OrderGatlingTest extends Simulation {
 
     val scn = scenario("Test the Order entity")
         .exec(http("First unauthenticated request")
-        .get("/api/account")
+        .get("/malluaa/api/account")
         .headers(headers_http)
         .check(status.is(401))).exitHereIfFailed
         .pause(10)
         .exec(http("Authentication")
-        .post("/oauth/token")
+        .post("/malluaa/oauth/token")
         .headers(headers_http_authentication)
         .formParam("username", "admin")
         .formParam("password", "admin")
         .formParam("grant_type", "password")
-        .formParam("scope", "read write")
-        .formParam("client_secret", "my-secret-token-to-change-in-production")
-        .formParam("client_id", "mallServiceOrderapp")
-        .formParam("submit", "Login")
+//        .formParam("scope", "read write")
+//        .formParam("client_secret", "my-secret-token-to-change-in-production")
+//        .formParam("client_id", "mallServiceOrderapp")
+//        .formParam("submit", "Login")
         .check(jsonPath("$.access_token").saveAs("access_token"))).exitHereIfFailed
         .pause(1)
         .exec(http("Authenticated request")
-        .get("/api/account")
+        .get("/malluaa/api/account")
         .headers(headers_http_authenticated)
         .check(status.is(200)))
         .pause(10)
@@ -90,10 +91,10 @@ class OrderGatlingTest extends Simulation {
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created order")
-            .delete("/mallserviceorder${new_order_url}")
-            .headers(headers_http_authenticated))
-            .pause(10)
+//            .exec(http("Delete created order")
+//            .delete("/mallserviceorder${new_order_url}")
+//            .headers(headers_http_authenticated))
+//            .pause(10)
         }
 
     val users = scenario("Users").exec(scn)
