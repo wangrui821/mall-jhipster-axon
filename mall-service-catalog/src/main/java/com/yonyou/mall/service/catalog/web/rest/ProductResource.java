@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 
 import com.codahale.metrics.annotation.Timed;
@@ -67,6 +68,8 @@ public class ProductResource implements ProductApi {
                                      "A new product cannot already have an ID"))
                                  .body(null);
         }
+        String code = UUID.randomUUID().toString();
+        productDTO.setCode(code);
         ProductDTO result = productService.save(productDTO);
         return ResponseEntity.created(new URI("/api/products?code=" + result.getCode()))
                              .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getCode()))
