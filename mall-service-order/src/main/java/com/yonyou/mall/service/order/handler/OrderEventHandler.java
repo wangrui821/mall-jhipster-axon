@@ -63,7 +63,7 @@ public class OrderEventHandler {
     }
 
     @EventHandler
-    public void on(OrderCreateConfirmedEvent event) {
+    public void handle(OrderCreateConfirmedEvent event) {
         Order order = orderRepository.findByCode(event.getCode());
         if (order == null) {
             log.error("Cannot find order with code {}", event.getCode());
@@ -81,6 +81,7 @@ public class OrderEventHandler {
             log.error("Cannot find order with code {}", event.getCode());
             return;
         }
+        orderItemRepository.deleteInBatch(order.getOrderItems());
         orderRepository.delete(order);
         orderSearchRepository.delete(order);
     }
