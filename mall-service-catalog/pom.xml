@@ -5,7 +5,7 @@
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
-        <version>1.5.2.RELEASE</version>
+        <version>1.5.9.RELEASE</version>
         <relativePath />
     </parent>
 
@@ -90,12 +90,13 @@
 
         <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
         <!-- Spring properties -->
-        <spring-cloud.version>Camden.SR6</spring-cloud.version>
+        <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
         <spring-security-oauth.version>2.0.12.RELEASE</spring-security-oauth.version>
         <springfox.version>2.6.1</springfox.version>
         <undertow.version>1.4.10.Final</undertow.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
         <yarn.version>v0.21.3</yarn.version>
+        <axon.version>3.1</axon.version>
     </properties>
 
     <dependencyManagement>
@@ -452,7 +453,7 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-spring-boot-starter</artifactId>
-            <version>3.0.4</version>
+            <version>${axon.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -461,7 +462,7 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-mongo</artifactId>
-            <version>3.0.4</version>
+            <version>${axon.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -470,12 +471,12 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-amqp</artifactId>
-            <version>3.0.4</version>
+            <version>${axon.version}</version>
         </dependency>
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-spring-boot-starter-jgroups</artifactId>
-            <version>3.0.4</version>
+            <version>${axon.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -882,7 +883,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
-                            <warSourceDirectory>src/main/webapp/</warSourceDirectory>
+                            <webXml>WebContent\WEB-INF\web.xml</webXml>
                         </configuration>
                     </plugin>
                     <plugin>

@@ -70,6 +70,7 @@ spring:
             domain-events-collection-name: domain_events
             snapshot-events-collection-name: snapshot_events
             sagas-collection-name: sagas
+            tracking-tokens-collection-name: tracking_tokens
     mail:
         host: localhost
         port: 25

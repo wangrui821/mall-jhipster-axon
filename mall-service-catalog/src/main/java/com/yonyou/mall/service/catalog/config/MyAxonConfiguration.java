@@ -15,11 +15,11 @@ import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.eventsourcing.Snapshotter;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.mongo.DefaultMongoTemplate;
+import org.axonframework.mongo.MongoTemplate;
 import org.axonframework.mongo.eventhandling.saga.repository.MongoSagaStore;
-import org.axonframework.mongo.eventsourcing.eventstore.DefaultMongoTemplate;
 import org.axonframework.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
 import org.axonframework.mongo.eventsourcing.eventstore.MongoFactory;
-import org.axonframework.mongo.eventsourcing.eventstore.MongoTemplate;
 import org.axonframework.mongo.eventsourcing.eventstore.documentperevent.DocumentPerEventStorageStrategy;
 import org.axonframework.serialization.Serializer;
 import org.axonframework.serialization.json.JacksonSerializer;
@@ -60,6 +60,9 @@ public class MyAxonConfiguration {
     @Value("${spring.data.mongodb.sagas-collection-name}")
     private String sagasCollectionName;
 
+    @Value("${spring.data.mongodb.tracking-tokens-collection-name}")
+    private String trackingTokensCollectionName;
+
     @Bean
     public Serializer axonSerializer() {
         return new JacksonSerializer();
@@ -74,9 +77,10 @@ public class MyAxonConfiguration {
 
     @Bean(name = "axonMongoTemplate")
     public MongoTemplate axonMongoTemplate() {
-        MongoTemplate template = new DefaultMongoTemplate(mongoClient(), mongoDatabase, domainEventsCollectionName,
-            snapshotEventsCollectionName);
-        return template;
+        MongoTemplate mongoTemplate = new DefaultMongoTemplate(mongoClient(), mongoDatabase).withDomainEventsCollection(
+            domainEventsCollectionName).withSnapshotCollection(snapshotEventsCollectionName).withSagasCollection(
+            sagasCollectionName).withTrackingTokenCollection(trackingTokensCollectionName);
+        return mongoTemplate;
     }
 
     @Bean
@@ -87,10 +91,7 @@ public class MyAxonConfiguration {
 
     @Bean
     public SagaStore sagaStore() {
-        org.axonframework.mongo.eventhandling.saga.repository.MongoTemplate mongoTemplate = new org.axonframework
-            .mongo.eventhandling.saga.repository.DefaultMongoTemplate(
-            mongoClient(), mongoDatabase, sagasCollectionName);
-        return new MongoSagaStore(mongoTemplate, axonSerializer());
+        return new MongoSagaStore(axonMongoTemplate(), axonSerializer());
     }
 
 
