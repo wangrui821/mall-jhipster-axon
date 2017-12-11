@@ -7,7 +7,7 @@
 	<groupId>com.yonyou.mall.service.order</groupId>
 	<artifactId>mall-service-order-common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Mall Service Catalog Order Common</name>
+	<name>Mall Service Order Common</name>
 
 	<dependencies>
 		<dependency>
@@ -23,7 +23,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
-			<version>1.13.8.RELEASE</version>
+			<version>1.13.9.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -34,6 +34,12 @@
 			<groupId>org.axonframework</groupId>
 			<artifactId>axon-core</artifactId>
 			<version>3.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>
