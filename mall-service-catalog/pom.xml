@@ -108,7 +108,7 @@
         <springfox.version>2.6.1</springfox.version>
         <undertow.version>1.4.10.Final</undertow.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
-        <yarn.version>v0.21.3</yarn.version>
+        <yarn.version>v1.3.2</yarn.version>
         <axon.version>3.1.1</axon.version>
     </properties>
 

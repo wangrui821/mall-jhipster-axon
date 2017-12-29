@@ -480,7 +480,7 @@
         </dependency>
         <dependency>
             <groupId>org.axonframework</groupId>
-            <artifactId>axon-spring-boot-starter-jgroups</artifactId>
+            <artifactId>axon-distributed-commandbus-springcloud</artifactId>
             <version>${axon.version}</version>
         </dependency>
     </dependencies>
