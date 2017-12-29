@@ -1,15 +1,25 @@
 package com.yonyou.mall.service.catalog;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.PostConstruct;
+
+import com.netflix.appinfo.ApplicationInfoManager;
+import com.netflix.appinfo.InstanceInfo;
 import com.yonyou.mall.service.catalog.client.OAuth2InterceptedFeignConfiguration;
 import com.yonyou.mall.service.catalog.config.ApplicationProperties;
 import com.yonyou.mall.service.catalog.config.DefaultProfileUtil;
-
 import io.github.jhipster.config.JHipsterConstants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.*;
+import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -17,12 +27,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
-
-import javax.annotation.PostConstruct;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Collection;
 
 @ComponentScan(
     excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = OAuth2InterceptedFeignConfiguration.class)
@@ -58,7 +62,16 @@ public class MallServiceCatalogApp {
             log.error("You have misconfigured your application! It should not" +
                 "run with both the 'dev' and 'cloud' profiles at the same time.");
         }
+
+        Map<String, String> map = new HashMap<>(2);
+        map.put("test-key1", "test-value1");
+        map.put("test-key2", "test-value2");
+        applicationInfoManager.registerAppMetadata(map);
+        InstanceInfo instanceInfo = applicationInfoManager.getInfo();
     }
+
+    @Autowired
+    private ApplicationInfoManager applicationInfoManager;
 
     /**
      * Main method, used to run the application.

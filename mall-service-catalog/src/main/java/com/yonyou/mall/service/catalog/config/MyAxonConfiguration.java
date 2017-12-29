@@ -6,6 +6,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import com.yonyou.mall.service.catalog.aggregate.ProductAggregate;
 import com.yonyou.mall.service.catalog.aggregate.ProductCommandHandler;
+import org.axonframework.commandhandling.distributed.AnnotationRoutingStrategy;
+import org.axonframework.commandhandling.distributed.CommandRouter;
 import org.axonframework.commandhandling.model.Repository;
 import org.axonframework.eventhandling.saga.repository.SagaStore;
 import org.axonframework.eventsourcing.AggregateFactory;
@@ -33,8 +35,10 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -151,5 +155,12 @@ public class MyAxonConfiguration {
     @Bean
     public Binding catalogQueueBinding() {
         return BindingBuilder.bind(catalogQueue()).to(exchange()).with("#.catalog.#").noargs();
+    }
+
+
+    @Primary
+    @Bean
+    public CommandRouter mySpringCloudCommandRouter(DiscoveryClient discoveryClient) {
+        return new MySpringCloudCommandRouter(discoveryClient, new AnnotationRoutingStrategy());
     }
 }

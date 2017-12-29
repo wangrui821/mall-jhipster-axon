@@ -81,13 +81,3 @@ security:
         name: admin
         password: admin
         role: USER,ADMIN
-
-
-axon:
-    distributed:
-        jgroups:
-            enabled: true
-            cluster-name: mall_axon
-            bind-addr: 127.0.0.1
-            gossip:
-                auto-start: true

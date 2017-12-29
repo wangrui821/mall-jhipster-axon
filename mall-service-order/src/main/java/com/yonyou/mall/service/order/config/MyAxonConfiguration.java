@@ -9,6 +9,8 @@ import com.yonyou.mall.service.order.aggregate.OrderAggregate;
 import com.yonyou.mall.service.order.aggregate.OrderCommandHandler;
 import com.yonyou.mall.service.order.saga.OrderSaga;
 import org.axonframework.amqp.eventhandling.spring.SpringAMQPMessageSource;
+import org.axonframework.commandhandling.distributed.AnnotationRoutingStrategy;
+import org.axonframework.commandhandling.distributed.CommandRouter;
 import org.axonframework.commandhandling.model.Repository;
 import org.axonframework.eventhandling.EventProcessor;
 import org.axonframework.eventhandling.SubscribingEventProcessor;
@@ -42,8 +44,10 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -180,5 +184,12 @@ public class MyAxonConfiguration {
                 super.onMessage(message, channel);
             }
         };
+    }
+
+
+    @Primary
+    @Bean
+    public CommandRouter mySpringCloudCommandRouter(DiscoveryClient discoveryClient) {
+        return new MySpringCloudCommandRouter(discoveryClient, new AnnotationRoutingStrategy());
     }
 }

@@ -187,11 +187,11 @@ logging:
         org.mongodb: INFO
         com.hazelcast: INFO
 
+
 axon:
     amqp:
         exchange: mall_axon.EventBus
     distributed:
-        jgroups:
-            enabled: true
-            cluster-name: mall_axon
-            bind-addr: 127.0.0.1
+        enabled: true
+        spring-cloud:
+            fallback-to-http-get: false
